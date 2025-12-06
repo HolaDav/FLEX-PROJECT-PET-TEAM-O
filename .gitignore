@@ -1,0 +1,28 @@
+# Data directories (too large for GitHub)
+data/
+vois/voi_*.nii
+vois/*_binary.nii
+vois/*_aligned.nii
+vois/*.mat
+
+# Temporary files
+*.log
+temp_*
+*.nii.gz
+*.csv
+
+# FSL outputs
+*.bval
+*.bvec
+*.txt
+
+# Keep only small processed results
+!results/
+!results/*.csv
+
+# But ignore large results
+results/*.nii
+results/*.nii.gz
+
+# Scripts and documentation should be committed
+!scripts/
