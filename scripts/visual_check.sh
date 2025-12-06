@@ -1,0 +1,13 @@
+#!/bin/bash
+echo "=== VISUAL CHECK ==="
+echo ""
+echo "To check alignment, run this command:"
+echo ""
+echo "fsleyes $FSLDIR/data/standard/MNI152_T1_2mm_brain.nii.gz \\"
+echo "       data/AD01/pet/AD01_PiB_5070_MNI_thr.nii.gz -cm hot \\"
+echo "       vois/voi_ctx_binary.nii -cm red -a 30 \\"
+echo "       vois/voi_cereb_binary.nii -cm green -a 30 &"
+echo ""
+echo "The cerebellum mask (green) should cover the cerebellum."
+echo "The cortical mask (red) should cover the cortex."
+echo "PET signal (hot colors) should align with brain structures."
