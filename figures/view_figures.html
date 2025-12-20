@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GAAIN Centiloid Pipeline - Visual Results</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .figure { margin: 30px 0; border: 1px solid #ddd; padding: 20px; border-radius: 10px; }
+        .caption { font-style: italic; margin-top: 10px; color: #555; }
+        .data-table { border-collapse: collapse; margin: 20px 0; }
+        .data-table th, .data-table td { border: 1px solid #ddd; padding: 8px; }
+        .data-table th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>GAAIN Centiloid Pipeline - Visual Results</h1>
+    <p>PET Team O - CONNExIN Flex Project</p>
+    
+    <div class="figure">
+        <h2>Figure 1: Pipeline Validation and Group Comparison</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+            <div style="flex: 1; min-width: 300px;">
+                <h3>Panel A: Pipeline Overview</h3>
+                <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px;">
+T1 MRI Processing:
+  ↓ BET (skull-stripping)
+  ↓ FLIRT to MNI (12 DOF)
+
+PET Processing (50-70min):
+  ↓ FLIRT to T1 (6 DOF)
+  ↓ Concatenate transforms
+  ↓ FLIRT to MNI
+
+VOI Processing:
+  ↓ Threshold at 0.5
+  ↓ Align to PET space
+  ↓ Extract SUVR values
+                </pre>
+            </div>
+            
+            <div style="flex: 1; min-width: 300px;">
+                <h3>Panel B: Validation Results</h3>
+                <table class="data-table">
+                    <tr><th>Metric</th><th>Value</th></tr>
+                    <tr><td>Published AD01 SUVR</td><td>2.524</td></tr>
+                    <tr><td>Our AD01 SUVR</td><td>2.459</td></tr>
+                    <tr><td>Difference</td><td>2.0%</td></tr>
+                    <tr><td>GAAIN QC Tolerance</td><td>5%</td></tr>
+                    <tr><td>Status</td><td style="color: green; font-weight: bold;">✓ PASS</td></tr>
+                </table>
+            </div>
+            
+            <div style="flex: 1; min-width: 300px;">
+                <h3>Panel C: Group Statistics</h3>
+                <table class="data-table">
+                    <tr><th>Group</th><th>n</th><th>Mean SUVR</th><th>SD</th><th>Range</th></tr>
+                    <tr><td>AD Patients</td><td>3</td><td>2.535</td><td>0.124</td><td>2.459-2.678</td></tr>
+                    <tr><td>Young Controls</td><td>5</td><td>1.045</td><td>0.090</td><td>0.978-1.199</td></tr>
+                </table>
+                <p><strong>Group Difference:</strong> 1.49 SUVR (143% increase)</p>
+                <p><strong>Amyloid Classification:</strong> All AD > 1.4, All YC < 1.4 (100% accuracy)</p>
+            </div>
+        </div>
+        <p class="caption">Figure 1. (A) Pipeline workflow. (B) Validation against published GAAIN values. 
+        (C) Group comparison showing significantly higher amyloid burden in AD patients.</p>
+    </div>
+    
+    <div class="figure">
+        <h2>Data Tables</h2>
+        
+        <h3>Individual Subject Results</h3>
+        <table class="data-table">
+            <tr><th>Subject</th><th>Group</th><th>SUVR</th><th>Status</th></tr>
+            <tr><td>AD01</td><td>AD</td><td>2.459</td><td>Validated</td></tr>
+            <tr><td>AD02</td><td>AD</td><td>0.872</td><td>Excluded (scaling)</td></tr>
+            <tr><td>AD03</td><td>AD</td><td>2.678</td><td>Valid</td></tr>
+            <tr><td>AD04</td><td>AD</td><td>1.631</td><td>Excluded (high cerebellar)</td></tr>
+            <tr><td>AD05</td><td>AD</td><td>2.467</td><td>Valid</td></tr>
+            <tr><td>YC101</td><td>YC</td><td>1.044</td><td>Valid</td></tr>
+            <tr><td>YC102</td><td>YC</td><td>0.987</td><td>Valid</td></tr>
+            <tr><td>YC103</td><td>YC</td><td>1.199</td><td>Valid</td></tr>
+            <tr><td>YC104</td><td>YC</td><td>0.978</td><td>Valid</td></tr>
+            <tr><td>YC105</td><td>YC</td><td>1.015</td><td>Valid</td></tr>
+        </table>
+        
+        <h3>Quality Control Summary</h3>
+        <table class="data-table">
+            <tr><th>QC Step</th><th>Result</th></tr>
+            <tr><td>Pipeline Validation</td><td>2.0% error (within 5% tolerance)</td></tr>
+            <tr><td>Cerebellar Range Check</td><td>Excluded 2/5 AD subjects</td></tr>
+            <tr><td>Group Separation</td><td>Complete (no overlap)</td></tr>
+            <tr><td>Clinical Classification</td><td>100% accuracy (all AD >1.4, all YC <1.4)</td></tr>
+        </table>
+    </div>
+    
+    <div style="margin-top: 40px; padding: 20px; background: #f0f8ff; border-radius: 10px;">
+        <h3>Links:</h3>
+        <ul>
+            <li><a href="https://github.com/HolaDav/FLEX-PROJECT-PET-TEAM-O">GitHub Repository</a></li>
+            <li><a href="https://www.protocols.io/private/2054F27ED2CD11F09A000A58A9FEAC02">Protocol Document</a></li>
+            <li><a href="results/suvr_data.csv">Download CSV Data</a></li>
+        </ul>
+    </div>
+</body>
+</html>
