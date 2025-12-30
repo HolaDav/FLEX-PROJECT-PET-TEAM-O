@@ -11,7 +11,7 @@ AVAILABLE_SUBJECTS=()
 
 for i in {1..25}; do
     AD_SUBJ=$(printf "AD%02d" $i)
-    YC_SUBJ=$(printf "YC1%02d" $i)
+    # YC_SUBJ=$(printf "YC1%02d" $i)
     
     if [ -f "data/$AD_SUBJ/anat/${AD_SUBJ}_MR.nii" ] && [ -f "data/$AD_SUBJ/pet/${AD_SUBJ}_PiB_5070.nii" ]; then
         echo "✓ $AD_SUBJ: Data available"
@@ -49,18 +49,18 @@ for SUBJECT in "${AVAILABLE_SUBJECTS[@]}"; do
     mkdir -p "data/$SUBJECT/transform"
     
     # Step 1: Reorient if needed
-    # echo "1. Checking/reorienting..."
-    # fslreorient2std "$T1_FILE" "${T1_FILE%.nii}_reoriented.nii" 2>/dev/null
-    # if [ -f "${T1_FILE%.nii}_reoriented.nii" ]; then
-        # mv "${T1_FILE%.nii}_reoriented.nii" "$T1_FILE"
-        # echo "   T1 reoriented"
-    # fi
+    echo "1. Checking/reorienting..."
+    fslreorient2std "$T1_FILE" "${T1_FILE%.nii}_reoriented.nii" 2>/dev/null
+    if [ -f "${T1_FILE%.nii}_reoriented.nii" ]; then
+        mv "${T1_FILE%.nii}_reoriented.nii" "$T1_FILE"
+        echo "   T1 reoriented"
+    fi
     
-    # fslreorient2std "$PET_FILE" "${PET_FILE%.nii}_reoriented.nii" 2>/dev/null
-    # if [ -f "${PET_FILE%.nii}_reoriented.nii" ]; then
-        # mv "${PET_FILE%.nii}_reoriented.nii" "$PET_FILE"
-        # echo "   PET reoriented"
-    # fi
+    fslreorient2std "$PET_FILE" "${PET_FILE%.nii}_reoriented.nii" 2>/dev/null
+    if [ -f "${PET_FILE%.nii}_reoriented.nii" ]; then
+        mv "${PET_FILE%.nii}_reoriented.nii" "$PET_FILE"
+        echo "   PET reoriented"
+    fi
     
     # Step 2: Brain extraction
     echo "2. Brain extraction..."

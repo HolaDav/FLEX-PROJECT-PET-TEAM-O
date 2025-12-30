@@ -97,9 +97,9 @@ extract_suvr() {
     echo "  SUVR: $SUVR ($QC_STATUS)"
 }
 
-# Process all AD subjects (01-25 if available)
+# Process all AD subjects (01-5 if available)
 echo "=== PROCESSING AD SUBJECTS ==="
-for i in {1..25}; do
+for i in {1..5}; do
     SUBJ=$(printf "AD%02d" $i)
     if [ -d "data/$SUBJ" ]; then
         extract_suvr "$SUBJ" "AD"
