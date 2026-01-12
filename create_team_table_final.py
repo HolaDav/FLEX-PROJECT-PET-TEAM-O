@@ -107,7 +107,7 @@ table_data = [
     },
     {
         "Analysis": "TEAM O VALIDATION",
-        "Team / Method": "Your FSL Pipeline",
+        "Team / Method": "Team O FSL Pipeline",
         "AD SUVR\nMean ± SD": f"{your_ad_mean:.2f} ± {your_ad_sd:.2f}",
         "vs GAAIN\nCorrelation": f"r = {your_correlation:.2f}",
         "vs GAAIN\nMean Error": f"{your_error:.2f} SUVR",
@@ -115,7 +115,7 @@ table_data = [
     },
     {
         "Analysis": "TEAM A VALIDATION",
-        "Team / Method": "Abdullahi's SPM Pipeline",
+        "Team / Method": "Team A SPM Pipeline",
         "AD SUVR\nMean ± SD": f"{abdullahi_spm_mean:.2f} ± {abdullahi_spm_sd:.2f}",
         "vs GAAIN\nCorrelation": f"r = {abdullahi_spm_corr:.2f}",
         "vs GAAIN\nMean Error": f"{abdullahi_spm_error:.2f} SUVR",
@@ -123,7 +123,7 @@ table_data = [
     },
     {
         "Analysis": "TEAM A REPLICATION",
-        "Team / Method": "Abdullahi's FSL Pipeline",
+        "Team / Method": "Team A FSL Pipeline",
         "AD SUVR\nMean ± SD": f"{abdullahi_fsl_mean:.2f} ± {abdullahi_fsl_sd:.2f}",
         "vs GAAIN\nCorrelation": f"r = {abdullahi_fsl_corr:.2f}",
         "vs GAAIN\nMean Error": f"{abdullahi_fsl_error:.2f} SUVR",
@@ -131,7 +131,7 @@ table_data = [
     },
     {
         "Analysis": "REPRODUCIBILITY",
-        "Team / Method": "Your FSL vs Abdullahi's FSL",
+        "Team / Method": "Team O vs Team A FSL",
         "AD SUVR\nMean ± SD": f"Diff = {abs(repro_mean_diff):.3f} SUVR",
         "vs GAAIN\nCorrelation": f"r = {repro_correlation:.2f}",
         "vs GAAIN\nMean Error": f"-",
@@ -144,22 +144,22 @@ df_table = pd.DataFrame(table_data)
 
 print("COMPLETE ANALYSIS SUMMARY")
 print("=" * 90)
-print("\n1. YOUR FSL PIPELINE:")
+print("\n1. Team O FSL PIPELINE:")
 print(f"   • AD SUVR: {your_ad_mean:.3f} ± {your_ad_sd:.3f}")
 print(f"   • vs GAAIN: r = {your_correlation:.3f}, error = {your_error:.3f} SUVR")
 print(f"   • Subjects: 6 AD (after QC)")
 
-print("\n2. ABDULLAHI'S SPM PIPELINE:")
+print("\n2. Team A SPM PIPELINE:")
 print(f"   • AD SUVR: {abdullahi_spm_mean:.3f} ± {abdullahi_spm_sd:.3f}")
 print(f"   • vs GAAIN: r = {abdullahi_spm_corr:.3f}, error = {abdullahi_spm_error:.3f} SUVR")
 print(f"   • Subjects: 22 AD")
 
-print("\n3. ABDULLAHI'S FSL PIPELINE (Replication):")
+print("\n3. Team A FSL PIPELINE (Replication):")
 print(f"   • AD SUVR: {abdullahi_fsl_mean:.3f} ± {abdullahi_fsl_sd:.3f}")
 print(f"   • vs GAAIN: r = {abdullahi_fsl_corr:.3f}, error = {abdullahi_fsl_error:.3f} SUVR")
 print(f"   • Subjects: 21 AD")
 
-print("\n4. REPRODUCIBILITY (Your FSL vs Abdullahi's FSL):")
+print("\n4. REPRODUCIBILITY (Team O FSL vs Team A FSL):")
 print(f"   • Correlation: r = {repro_correlation:.3f}")
 print(f"   • Mean difference: {repro_mean_diff:.3f} SUVR")
 print(f"   • Subjects: 20 matched AD")
@@ -212,19 +212,19 @@ print("KEY INSIGHTS FROM COMPLETE ANALYSIS")
 print("=" * 90)
 
 print("\n1. ACCURACY VS GAAIN (Lower error is better):")
-print(f"   • Abdullahi's SPM: {abs(abdullahi_spm_error):.3f} SUVR error (BEST)")
-print(f"   • Abdullahi's FSL: {abs(abdullahi_fsl_error):.3f} SUVR error")
-print(f"   • Your FSL: {abs(your_error):.3f} SUVR error")
+print(f"   • Team A SPM: {abs(abdullahi_spm_error):.3f} SUVR error (BEST)")
+print(f"   • Team A FSL: {abs(abdullahi_fsl_error):.3f} SUVR error")
+print(f"   • Team O FSL: {abs(your_error):.3f} SUVR error")
 
 print("\n2. CORRELATION WITH GAAIN (Higher r is better):")
-print(f"   • Abdullahi's SPM: r = {abdullahi_spm_corr:.3f} (BEST)")
-print(f"   • Abdullahi's FSL: r = {abdullahi_fsl_corr:.3f}")
-print(f"   • Your FSL: r = {your_correlation:.3f}")
+print(f"   • Team A SPM: r = {abdullahi_spm_corr:.3f} (BEST)")
+print(f"   • Team A FSL: r = {abdullahi_fsl_corr:.3f}")
+print(f"   • Team O FSL: r = {your_correlation:.3f}")
 
 print("\n3. CONSISTENCY (Lower SD is better):")
-print(f"   • Abdullahi's SPM: SD = {abdullahi_spm_sd:.3f} (MOST CONSISTENT)")
-print(f"   • Abdullahi's FSL: SD = {abdullahi_fsl_sd:.3f}")
-print(f"   • Your FSL: SD = {your_ad_sd:.3f}")
+print(f"   • Team A SPM: SD = {abdullahi_spm_sd:.3f} (MOST CONSISTENT)")
+print(f"   • Team A FSL: SD = {abdullahi_fsl_sd:.3f}")
+print(f"   • Team O: SD = {your_ad_sd:.3f}")
 
 print("\n4. REPRODUCIBILITY:")
 print(f"   • Between FSL implementations: r = {repro_correlation:.3f} (EXCELLENT)")
