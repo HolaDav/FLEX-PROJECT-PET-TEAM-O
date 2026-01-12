@@ -33,13 +33,13 @@ valid_results = valid_results[valid_results['Status'] != 'CHECK_AD_LOW']
 print(f"Your valid results: {len(valid_results)} subjects")
 
 # ============================================================================
-# FIGURE 1: VALIDATION SCATTER PLOT (Your FSL vs GAIN)
+# FIGURE 1: VALIDATION SCATTER PLOT (Your FSL vs GAAIN)
 # ============================================================================
 
 print("\nCreating Figure 1: Validation Scatter Plot...")
 
-# GAIN reference values (manually extracted from your data)
-gain_data = {
+# GAAIN reference values (manually extracted from your data)
+gaain_data = {
     'AD01': 2.524, 'AD02': 2.500, 'AD03': 2.887, 'AD04': 2.450, 'AD05': 2.540,
     'AD06': 2.472, 'AD07': 2.635, 'AD08': 2.325, 'AD09': 2.336, 'AD10': 2.599,
     'AD11': 2.376, 'AD12': 2.432, 'AD13': 2.509, 'AD14': 2.315, 'AD15': 1.955,
@@ -52,29 +52,29 @@ gain_data = {
     'YC121': 1.141, 'YC122': 1.119, 'YC123': 1.103, 'YC124': 1.137, 'YC125': 1.149
 }
 
-# Match your results with GAIN
+# Match your results with GAAIN
 validation_data = []
 for idx, row in valid_results.iterrows():
     subject = row['Subject']
-    if subject in gain_data:
+    if subject in gaain_data:
         validation_data.append({
             'Subject': subject,
             'Group': row['Group'],
             'Your_SUVR_CG': row['SUVR_CG'],
-            'GAIN_SUVR_CG': gain_data[subject]
+            'GAAIN_SUVR_CG': gaain_data[subject]
         })
 
 validation_df = pd.DataFrame(validation_data)
 
 # Calculate correlation
-r, p = stats.pearsonr(validation_df['GAIN_SUVR_CG'], validation_df['Your_SUVR_CG'])
+r, p = stats.pearsonr(validation_df['GAAIN_SUVR_CG'], validation_df['Your_SUVR_CG'])
 slope, intercept, r_value, p_value, std_err = stats.linregress(
-    validation_df['GAIN_SUVR_CG'], validation_df['Your_SUVR_CG']
+    validation_df['GAAIN_SUVR_CG'], validation_df['Your_SUVR_CG']
 )
 r_squared = r_value**2
-mape = np.mean(np.abs((validation_df['GAIN_SUVR_CG'] - validation_df['Your_SUVR_CG']) / validation_df['GAIN_SUVR_CG'])) * 100
+mape = np.mean(np.abs((validation_df['GAAIN_SUVR_CG'] - validation_df['Your_SUVR_CG']) / validation_df['GAAIN_SUVR_CG'])) * 100
 
-print(f"Correlation with GAIN: r = {r:.3f}, p = {p:.4f}")
+print(f"Correlation with GAAIN: r = {r:.3f}, p = {p:.4f}")
 print(f"MAPE: {mape:.1f}%")
 print(f"R²: {r_squared:.3f}")
 
@@ -85,22 +85,22 @@ fig1, ax1 = plt.subplots(figsize=(8, 6))
 colors = {'AD': 'red', 'YC': 'blue'}
 for group in ['AD', 'YC']:
     group_data = validation_df[validation_df['Group'] == group]
-    ax1.scatter(group_data['GAIN_SUVR_CG'], group_data['Your_SUVR_CG'],
+    ax1.scatter(group_data['GAAIN_SUVR_CG'], group_data['Your_SUVR_CG'],
                color=colors[group], alpha=0.7, s=80, label=f'{group} Cohort')
 
 # Add regression line
-x_fit = np.linspace(validation_df['GAIN_SUVR_CG'].min(), validation_df['GAIN_SUVR_CG'].max(), 100)
+x_fit = np.linspace(validation_df['GAAIN_SUVR_CG'].min(), validation_df['GAAIN_SUVR_CG'].max(), 100)
 y_fit = slope * x_fit + intercept
 ax1.plot(x_fit, y_fit, 'k--', linewidth=2, label=f'Fit: y = {slope:.2f}x + {intercept:.2f}')
 
 # Add identity line (perfect agreement)
-max_val = max(validation_df['GAIN_SUVR_CG'].max(), validation_df['Your_SUVR_CG'].max())
+max_val = max(validation_df['GAAIN_SUVR_CG'].max(), validation_df['Your_SUVR_CG'].max())
 ax1.plot([0, max_val], [0, max_val], 'gray', linestyle=':', linewidth=1.5, label='Identity')
 
 # Labels and title
-ax1.set_xlabel('GAIN Reference SUVR (Cerebellar Gray)', fontsize=12, fontweight='bold')
+ax1.set_xlabel('GAAIN Reference SUVR (Cerebellar Gray)', fontsize=12, fontweight='bold')
 ax1.set_ylabel('Our Pipeline SUVR (Cerebellar Gray)', fontsize=12, fontweight='bold')
-ax1.set_title('Validation Against GAIN Reference Standard', fontsize=14, fontweight='bold')
+ax1.set_title('Validation Against GAAIN Reference Standard', fontsize=14, fontweight='bold')
 
 # Add correlation annotation
 text_box = f'r = {r:.2f}, p < 0.001\nMAPE = {mape:.1f}%\nR² = {r_squared:.2f}'
